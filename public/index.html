@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+ 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/plyr/3.6.3/plyr.min.css" integrity="sha512-dq8AeRs1cVyiW4/Ybo7Rn8+TlezUqjZrkZQd+zmR0ina6bSDcFyfM1ID7Mkj9QHmkk7sxZMEvspxL1U91tZS5w==" crossorigin="anonymous" />
+  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+	<video id="video"  controls crossorigin playsinline poster="https://bitdash-a.akamaihd.net/content/sintel/poster.png"></video>
+</body>
+<script src="https://cdn.dashjs.org/latest/dash.all.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/plyr/3.6.3/plyr.min.js" integrity="sha512-j9RGDdWcJqVqrSDkCVkJGaGJgAxDyyYNzYEAuzEWQhIhcjpcbRUip/0ZjP1iW5l1uNEBJNtAD/2YecwlIF3XjQ==" crossorigin="anonymous"></script>
+<script>
+
+
+
+
+  let videoEle = document.getElementById("video");
+  let source_path = document.getElementById("video-source");
+   function setData(data){
+      // videoEle.src = ;
+      var path = data.stream_id.webm_path;
+      let path_ = path.replace("D:\\Personal Projects\\IndiFlix\\storage\\","");
+      let url = "/" + path_
+      // source_path.src = url;
+      const dash = dashjs.MediaPlayer().create();
+    	dash.initialize(videoEle, url, true);
+
+
+      const player = new Plyr(videoEle);
+      window.player = player;
+	    window.dash = dash;
+      console.log(url);
+
+  }
+
+  fetch("/content/60031b2b1d90652828401cde")
+  .then(response => response.json())
+  .then(data => setData(data));
+</script>
+</html>
